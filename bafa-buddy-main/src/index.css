@@ -78,6 +78,10 @@
     --muted: 0 0% 8%;
     --muted-foreground: 0 0% 55%;
 
+    /* Bright accent colors for dark mode */
+    --accent-blue: 210 100% 70%;
+    --accent-green: 142 76% 45%;
+
     --border: 0 0% 12%;
     --input: 0 0% 12%;
     --ring: 0 0% 90%;
@@ -110,13 +114,6 @@
       linear-gradient(hsl(var(--grid-color) / 0.3) 1px, transparent 1px),
       linear-gradient(90deg, hsl(var(--grid-color) / 0.3) 1px, transparent 1px);
     background-size: calc(var(--grid-size) * 2) calc(var(--grid-size) * 2);
-  }
-
-  .gradient-text {
-    background: linear-gradient(135deg, hsl(var(--accent-blue)), hsl(var(--accent-green)));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   /* Circle Outlines Signature Element */
