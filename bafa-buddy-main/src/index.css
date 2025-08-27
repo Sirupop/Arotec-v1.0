@@ -78,6 +78,10 @@
     --muted: 0 0% 8%;
     --muted-foreground: 0 0% 55%;
 
+    /* Bright accent colors for dark mode */
+    --accent-blue: 210 100% 70%;
+    --accent-green: 142 76% 45%;
+
     --border: 0 0% 12%;
     --input: 0 0% 12%;
     --ring: 0 0% 90%;
