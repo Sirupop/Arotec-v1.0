@@ -200,19 +200,19 @@
 
   /* Wave Animation for Circles */
   .animate-wave-1 {
-    animation: wave-float 4s ease-in-out infinite;
+    animation: wave-motion 6s ease-in-out infinite;
   }
 
   .animate-wave-2 {
-    animation: wave-float 4s ease-in-out 0.5s infinite;
+    animation: wave-motion 6s ease-in-out 1s infinite;
   }
 
   .animate-wave-3 {
-    animation: wave-float 4s ease-in-out 1s infinite;
+    animation: wave-motion 6s ease-in-out 2s infinite;
   }
 
   .animate-wave-4 {
-    animation: wave-float 4s ease-in-out 1.5s infinite;
+    animation: wave-motion 6s ease-in-out 3s infinite;
   }
 
   /* Stagger animations */
@@ -237,12 +237,18 @@
     }
   }
 
-  @keyframes wave-float {
+  @keyframes wave-motion {
     0%, 100% {
-      transform: translateY(0px) scale(1);
+      transform: translateX(0) translateY(0) scale(1);
+    }
+    25% {
+      transform: translateX(-20px) translateY(-10px) scale(1.02);
     }
     50% {
-      transform: translateY(-10px) scale(1.02);
+      transform: translateX(-40px) translateY(0) scale(1);
+    }
+    75% {
+      transform: translateX(-20px) translateY(10px) scale(1.02);
     }
   }
 
