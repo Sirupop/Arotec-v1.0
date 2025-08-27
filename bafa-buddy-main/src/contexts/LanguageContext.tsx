@@ -30,7 +30,7 @@ const translations = {
     'hero.cta.learn': 'Learn More',
     'hero.compliance.bafa': 'BAFA-compliant',
     'hero.compliance.iso': 'ISO 50001',
-    'hero.compliance.gdpr': 'GDPR-ready',
+    'hero.compliance.gdpr': 'DSVGO',
     
     // Features Section
     'features.title': 'Built for',
