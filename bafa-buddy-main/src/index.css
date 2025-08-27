@@ -152,7 +152,11 @@
 
   /* Text Animations */
   .animate-text-glow {
-    animation: text-glow 2s ease-in-out infinite alternate;
+    animation: text-glow-light 2s ease-in-out infinite alternate;
+  }
+
+  .dark .animate-text-glow {
+    animation-name: text-glow-dark;
   }
 
   .animate-fade-in-up {
@@ -221,7 +225,12 @@
   .stagger-3 { animation-delay: 0.3s; }
   .stagger-4 { animation-delay: 0.4s; }
 
-  @keyframes text-glow {
+  @keyframes text-glow-light {
+    0% { text-shadow: 0 0 3px hsl(var(--foreground) / 0.2); }
+    100% { text-shadow: 0 0 8px hsl(var(--foreground) / 0.3), 0 0 16px hsl(var(--foreground) / 0.2); }
+  }
+
+  @keyframes text-glow-dark {
     0% { text-shadow: 0 0 5px hsl(var(--foreground) / 0.3); }
     100% { text-shadow: 0 0 15px hsl(var(--foreground) / 0.6), 0 0 25px hsl(var(--foreground) / 0.4); }
   }
