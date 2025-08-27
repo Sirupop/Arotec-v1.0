@@ -65,7 +65,7 @@ const Index = () => {
                 <span className="animate-hero-text">{t('hero.title.the')}</span>{" "}
                 <span className="animate-hero-text-delayed animate-text-glow text-foreground">{t('hero.title.smart')}</span>{" "}
                 <span className="animate-hero-text-delayed-2">{t('hero.title.for')}</span>{" "}
-                <span className="gradient-text animate-hero-text-delayed-3 animate-text-glow">
+                <span className="animate-hero-text-delayed-3 animate-text-glow text-foreground">
                   {t('hero.title.audits')}
                 </span>
               </h1>
