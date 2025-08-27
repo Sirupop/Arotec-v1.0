@@ -12,14 +12,15 @@ interface FeatureCardProps {
   index: number;
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ 
-  icon: Icon, 
-  title, 
-  description, 
-  expandedContent, 
-  index 
-}) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const FeatureCard: React.FC<FeatureCardProps> = ({
+    icon: Icon,
+    title,
+    description,
+    expandedContent,
+    index
+  }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const { t } = useLanguage();
 
   return (
     <Card 
@@ -49,16 +50,16 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
           onClick={() => setIsExpanded(!isExpanded)}
           className="mt-4 p-0 h-auto font-medium text-foreground hover:text-foreground/80 transition-colors"
         >
-          {isExpanded ? (
-            <>
-              {useLanguage().t('common.showLess')} <ChevronUp className="ml-1 h-4 w-4" />
-            </>
-          ) : (
-            <>
-              {useLanguage().t('common.readMore')} <ChevronDown className="ml-1 h-4 w-4" />
-            </>
-          )}
-        </Button>
+            {isExpanded ? (
+              <>
+                {t('common.showLess')} <ChevronUp className="ml-1 h-4 w-4" />
+              </>
+            ) : (
+              <>
+                {t('common.readMore')} <ChevronDown className="ml-1 h-4 w-4" />
+              </>
+            )}
+          </Button>
       </CardContent>
     </Card>
   );
