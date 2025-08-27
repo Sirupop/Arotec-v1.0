@@ -39,7 +39,7 @@ const Index = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
+      <section className="relative mt-16 h-[calc(100vh-4rem)] flex items-center overflow-hidden">
         <div className="absolute inset-0 grid-pattern-subtle opacity-40"></div>
 
         {/* Animated circles covering two-thirds of banner on desktop */}
@@ -52,7 +52,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 mt-8">
           <div className="text-center mx-auto max-w-2xl space-y-8">
             <div className="space-y-6">
               <Badge
