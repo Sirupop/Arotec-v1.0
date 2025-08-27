@@ -30,7 +30,6 @@ import {
   Lock,
   Atom
 } from "lucide-react";
-import heroImage from "@/assets/hero-minimal-audit.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
@@ -39,68 +38,65 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Hero Section with Grid */}
+      {/* Hero Section */}
       <section className="relative pt-20 pb-32 overflow-hidden">
         <div className="absolute inset-0 grid-pattern-subtle opacity-40"></div>
-        {/* Four Overlapping Circle Outlines - Two-thirds coverage with Wave Animation */}
-        <div className="absolute top-16 right-8 w-96 h-96 border-2 border-foreground/12 rounded-full animate-wave-1"></div>
-        <div className="absolute top-32 right-24 w-80 h-80 border-2 border-foreground/16 rounded-full animate-wave-2"></div>
-        <div className="absolute top-24 right-40 w-72 h-72 border-2 border-foreground/14 rounded-full animate-wave-3"></div>
-        <div className="absolute top-40 right-16 w-64 h-64 border-2 border-foreground/20 rounded-full animate-wave-4"></div>
-        
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <div className="space-y-6">
-                <Badge variant="secondary" className="border border-border text-xs font-medium px-3 py-1 animate-fade-in-up">
-                  {t('hero.badge')}
-                </Badge>
-                <h1 className="text-5xl lg:text-7xl font-bold leading-[0.9] tracking-tight">
-                  <span className="animate-hero-text">{t('hero.title.the')}</span>{" "}
-                  <span className="animate-hero-text-delayed animate-text-glow">{t('hero.title.smart')}</span>{" "}
-                  <span className="animate-hero-text-delayed-2">{t('hero.title.for')}</span>{" "}
-                  <span className="gradient-text animate-hero-text-delayed-3 animate-text-glow">
-                    {t('hero.title.audits')}
-                  </span>
-                </h1>
-                <p className="text-xl text-muted-foreground leading-relaxed max-w-lg animate-slide-in-right stagger-2">
-                  {t('hero.description')}
-                </p>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up stagger-3">
-                <Button size="lg" className="text-sm font-medium h-12 px-6">
-                  {t('hero.cta.demo')}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                <Button variant="outline" size="lg" className="text-sm font-medium h-12 px-6">
-                  {t('hero.cta.learn')}
-                </Button>
-              </div>
 
-              <div className="flex items-center gap-8 pt-6 animate-fade-in-up stagger-4">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Sparkles className="h-4 w-4 text-foreground" />
-                  <span>{t('hero.compliance.bafa')}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Atom className="h-4 w-4 text-foreground" />
-                  <span>{t('hero.compliance.iso')}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Lock className="h-4 w-4 text-foreground" />
-                  <span>{t('hero.compliance.gdpr')}</span>
-                </div>
-              </div>
+        {/* Animated circles covering two-thirds of banner on desktop */}
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-2/3">
+          <div className="relative w-full h-full">
+            <div className="absolute top-10 left-[5%] w-72 h-72 border-2 border-foreground/12 rounded-full animate-wave-1"></div>
+            <div className="absolute top-20 left-[30%] w-80 h-80 border-2 border-foreground/16 rounded-full animate-wave-2"></div>
+            <div className="absolute top-6 left-[55%] w-96 h-96 border-2 border-foreground/14 rounded-full animate-wave-3"></div>
+            <div className="absolute top-24 left-[75%] w-64 h-64 border-2 border-foreground/20 rounded-full animate-wave-4"></div>
+          </div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mx-auto max-w-2xl space-y-8">
+            <div className="space-y-6">
+              <Badge
+                variant="secondary"
+                className="border border-border text-xs font-medium px-3 py-1 animate-fade-in-up"
+              >
+                {t('hero.badge')}
+              </Badge>
+              <h1 className="text-5xl lg:text-7xl font-bold leading-[0.9] tracking-tight">
+                <span className="animate-hero-text">{t('hero.title.the')}</span>{" "}
+                <span className="animate-hero-text-delayed animate-text-glow">{t('hero.title.smart')}</span>{" "}
+                <span className="animate-hero-text-delayed-2">{t('hero.title.for')}</span>{" "}
+                <span className="gradient-text animate-hero-text-delayed-3 animate-text-glow">
+                  {t('hero.title.audits')}
+                </span>
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto animate-slide-in-right stagger-2">
+                {t('hero.description')}
+              </p>
             </div>
-            
-            <div className="relative circle-outline-xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/10 to-accent-green/10 rounded-2xl transform rotate-3"></div>
-              <img 
-                src={heroImage} 
-                alt="Energy audit platform interface" 
-                className="relative rounded-2xl border border-border shadow-lg animate-scale-in stagger-2"
-              />
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up stagger-3">
+              <Button size="lg" className="text-sm font-medium h-12 px-6">
+                {t('hero.cta.demo')}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="lg" className="text-sm font-medium h-12 px-6">
+                {t('hero.cta.learn')}
+              </Button>
+            </div>
+
+            <div className="flex items-center justify-center gap-8 pt-6 animate-fade-in-up stagger-4">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Sparkles className="h-4 w-4 text-foreground" />
+                <span>{t('hero.compliance.bafa')}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Atom className="h-4 w-4 text-foreground" />
+                <span>{t('hero.compliance.iso')}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Lock className="h-4 w-4 text-foreground" />
+                <span>{t('hero.compliance.gdpr')}</span>
+              </div>
             </div>
           </div>
         </div>
