@@ -45,10 +45,10 @@ const Index = () => {
         {/* Animated circles covering two-thirds of banner on desktop */}
         <div className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-2/3">
           <div className="relative w-full h-full">
-            <div className="absolute top-10 left-[5%] w-96 h-96 border-2 border-foreground/20 rounded-full animate-wave-1"></div>
-            <div className="absolute top-20 left-[30%] w-[28rem] h-[28rem] border-2 border-foreground/20 rounded-full animate-wave-2"></div>
-            <div className="absolute top-6 left-[55%] w-[32rem] h-[32rem] border-2 border-foreground/20 rounded-full animate-wave-3"></div>
-            <div className="absolute top-24 left-[75%] w-80 h-80 border-2 border-foreground/20 rounded-full animate-wave-4"></div>
+            <div className="absolute top-10 left-[5%] w-96 h-96 border-2 border-blue-400/30 rounded-full animate-wave-1"></div>
+            <div className="absolute top-20 left-[30%] w-[28rem] h-[28rem] border-2 border-purple-400/30 rounded-full animate-wave-2"></div>
+            <div className="absolute top-6 left-[55%] w-[32rem] h-[32rem] border-2 border-green-400/30 rounded-full animate-wave-3"></div>
+            <div className="absolute top-24 left-[75%] w-80 h-80 border-2 border-pink-400/30 rounded-full animate-wave-4"></div>
           </div>
         </div>
 
