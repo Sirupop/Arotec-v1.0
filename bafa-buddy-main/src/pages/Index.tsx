@@ -25,10 +25,7 @@ import {
   Lightbulb,
   Target,
   Workflow,
-  Database,
-  Sparkles,
-  Lock,
-  Atom
+  Database
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -86,15 +83,15 @@ const Index = () => {
 
             <div className="flex items-center justify-center gap-8 pt-6 animate-fade-in-up stagger-4">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Sparkles className="h-4 w-4 text-foreground" />
+                <Shield className="h-4 w-4 text-foreground" />
                 <span>{t('hero.compliance.bafa')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Atom className="h-4 w-4 text-foreground" />
+                <Shield className="h-4 w-4 text-foreground" />
                 <span>{t('hero.compliance.iso')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Lock className="h-4 w-4 text-foreground" />
+                <Shield className="h-4 w-4 text-foreground" />
                 <span>{t('hero.compliance.gdpr')}</span>
               </div>
             </div>
