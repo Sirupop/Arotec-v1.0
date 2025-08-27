@@ -116,6 +116,13 @@
     background-size: calc(var(--grid-size) * 2) calc(var(--grid-size) * 2);
   }
 
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--accent-blue)), hsl(var(--accent-green)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   /* Circle Outlines Signature Element */
   .circle-outline {
     position: relative;
