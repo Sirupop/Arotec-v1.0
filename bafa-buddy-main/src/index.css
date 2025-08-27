@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Arrotec Design System - Minimal, Professional, Grid-Based */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 0 0% 15%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 8%;
+    --secondary-hover: 0 0% 92%;
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 8%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 8%;
+
+    /* Grid signature pattern */
+    --grid-color: 0 0% 94%;
+    --grid-size: 24px;
+    
+    /* Subtle accent colors */
+    --accent-blue: 210 100% 50%;
+    --accent-green: 142 76% 36%;
+    
+    /* Shadows for depth */
+    --shadow-minimal: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-elegant: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-strong: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+    --radius: 0.375rem;
+  }
+
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 8%;
+    --primary-hover: 0 0% 90%;
+
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 98%;
+    --secondary-hover: 0 0% 12%;
+
+    --accent: 0 0% 8%;
+    --accent-foreground: 0 0% 98%;
+
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 55%;
+
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 0 0% 90%;
+
+    --grid-color: 0 0% 8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-['Inter'] antialiased;
+  }
+}
+
+/* Grid Pattern Component */
+@layer components {
+  .grid-pattern {
+    background-image: 
+      linear-gradient(hsl(var(--grid-color)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-color)) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+  }
+  
+  .grid-pattern-subtle {
+    background-image: 
+      linear-gradient(hsl(var(--grid-color) / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-color) / 0.3) 1px, transparent 1px);
+    background-size: calc(var(--grid-size) * 2) calc(var(--grid-size) * 2);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--accent-blue)), hsl(var(--accent-green)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Circle Outlines Signature Element */
+  .circle-outline {
+    position: relative;
+  }
+  
+  .circle-outline::before {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 1px solid hsl(var(--foreground) / 0.1);
+    border-radius: 50%;
+    top: -20px;
+    right: -20px;
+    z-index: -1;
+  }
+  
+  .circle-outline-lg::before {
+    width: 120px;
+    height: 120px;
+    top: -30px;
+    right: -30px;
+  }
+  
+  .circle-outline-xl::before {
+    width: 200px;
+    height: 200px;
+    top: -50px;
+    right: -50px;
+  }
+
+  /* Text Animations */
+  .animate-text-glow {
+    animation: text-glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 1s ease-out forwards;
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.6s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  /* Hero Text Animations */
+  .animate-hero-text {
+    animation: hero-text 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+
+  .animate-hero-text-delayed {
+    animation: hero-text 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+
+  .animate-hero-text-delayed-2 {
+    animation: hero-text 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+
+  .animate-hero-text-delayed-3 {
+    animation: hero-text 0.8s ease-out 0.6s forwards;
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+
+  /* Wave Animation for Circles */
+  .animate-wave-1 {
+    animation: wave-float 4s ease-in-out infinite;
+  }
+
+  .animate-wave-2 {
+    animation: wave-float 4s ease-in-out 0.5s infinite;
+  }
+
+  .animate-wave-3 {
+    animation: wave-float 4s ease-in-out 1s infinite;
+  }
+
+  .animate-wave-4 {
+    animation: wave-float 4s ease-in-out 1.5s infinite;
+  }
+
+  /* Stagger animations */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+
+  @keyframes text-glow {
+    0% { text-shadow: 0 0 5px hsl(var(--foreground) / 0.3); }
+    100% { text-shadow: 0 0 15px hsl(var(--foreground) / 0.6), 0 0 25px hsl(var(--foreground) / 0.4); }
+  }
+
+  @keyframes hero-text {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes wave-float {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+    }
+    50% {
+      transform: translateY(-10px) scale(1.02);
+    }
+  }
+
+  @keyframes fade-in-up {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scale-in {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
