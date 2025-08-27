@@ -15,7 +15,7 @@ const Navigation = () => {
           {/* Brand Name */}
           <div className="flex items-center">
             <span className="text-xl font-semibold tracking-tight">
-              Arrotec
+              Arotec
             </span>
           </div>
 
