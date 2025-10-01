@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import dottedCircle from "@/assets/dotted-circle.svg";
 import { 
   ArrowRight,
   FileText, 
@@ -42,10 +43,42 @@ const Index = () => {
         {/* Animated circles covering two-thirds of banner on desktop */}
         <div className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-2/3">
           <div className="relative w-full h-full">
-            <div className="absolute top-10 left-[5%] w-96 h-96 border-2 border-foreground/20 rounded-full animate-wave-1"></div>
-            <div className="absolute top-20 left-[30%] w-[28rem] h-[28rem] border-2 border-foreground/20 rounded-full animate-wave-2"></div>
-            <div className="absolute top-6 left-[55%] w-[32rem] h-[32rem] border-2 border-foreground/20 rounded-full animate-wave-3"></div>
-            <div className="absolute top-24 left-[75%] w-80 h-80 border-2 border-foreground/20 rounded-full animate-wave-4"></div>
+            <div
+              className="absolute top-10 left-[5%] w-96 h-96 rounded-full overflow-hidden animate-wave-1 bg-background"
+              style={{
+                backgroundImage: `url(${dottedCircle})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat"
+              }}
+            ></div>
+            <div
+              className="absolute top-20 left-[30%] w-[28rem] h-[28rem] rounded-full overflow-hidden animate-wave-2 bg-background"
+              style={{
+                backgroundImage: `url(${dottedCircle})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat"
+              }}
+            ></div>
+            <div
+              className="absolute top-6 left-[55%] w-[32rem] h-[32rem] rounded-full overflow-hidden animate-wave-3 bg-background"
+              style={{
+                backgroundImage: `url(${dottedCircle})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat"
+              }}
+            ></div>
+            <div
+              className="absolute top-24 left-[75%] w-80 h-80 rounded-full overflow-hidden animate-wave-4 bg-background"
+              style={{
+                backgroundImage: `url(${dottedCircle})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat"
+              }}
+            ></div>
           </div>
         </div>
 
