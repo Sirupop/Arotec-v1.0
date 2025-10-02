@@ -138,7 +138,7 @@ const Index = () => {
               >
                 {t('hero.badge')}
               </Badge>
-              <h1 className="text-5xl lg:text-7xl font-bold leading-[1.15] tracking-tight">
+              <h1 className="text-5xl lg:text-7xl font-bold leading-tight lg:leading-[1.2] tracking-tight">
                 <span className="animate-hero-text">{t('hero.title.the')}</span>{" "}
                 <span className="animate-hero-text-delayed animate-text-glow text-foreground">{t('hero.title.smart')}</span>{" "}
                 <span className="animate-hero-text-delayed-2">{t('hero.title.for')}</span>{" "}
