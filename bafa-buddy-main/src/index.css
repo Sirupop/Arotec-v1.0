@@ -232,8 +232,12 @@
     --ring-radius: var(--ring-radius, 150px);
     --hero-entry-duration: 2s;
     --hero-wave-delay-offset: 0s;
-    animation: wave-motion 6s ease-in-out
-      calc(var(--hero-entry-duration) + var(--hero-wave-delay-offset)) infinite;
+    opacity: 0;
+    animation:
+      hero-ring-entry var(--hero-entry-duration, 2s)
+        cubic-bezier(0.19, 1, 0.22, 1) var(--hero-entry-delay, 0s) both,
+      wave-motion 6s ease-in-out
+        calc(var(--hero-entry-duration) + var(--hero-wave-delay-offset)) infinite;
   }
 
   .hero-dot {
@@ -257,7 +261,8 @@
     opacity: 0.9;
     animation: dot-float var(--dot-duration, 4s) ease-in-out infinite;
     animation-delay: calc(
-      var(--dot-delay, 0s) + var(--hero-entry-delay) + var(--hero-entry-duration)
+      var(--dot-delay, 0s) + var(--hero-entry-delay, 0s) +
+        var(--hero-entry-duration, 2s)
     );
   }
 
@@ -332,6 +337,21 @@
     }
   }
 
+  @keyframes hero-ring-entry {
+    0% {
+      transform: scale(0.35);
+      opacity: 0;
+    }
+    65% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   @keyframes wave-motion {
     0%, 100% {
       transform: translateX(0) translateY(0) scale(1);
@@ -362,18 +382,11 @@
 
   @keyframes hero-dot-assemble {
     0% {
-      transform: translate(-50%, calc(-50% + var(--ring-line-y-offset, 60px)))
-        translateX(
-          calc(var(--dot-line-offset, 0px) + var(--ring-line-entry-offset, 0vw))
-        );
+      transform: translate(-50%, -50%) rotate(var(--dot-angle)) translateX(0);
       opacity: 0;
     }
-    35% {
+    45% {
       opacity: 1;
-    }
-    60% {
-      transform: translate(-50%, calc(-50% + var(--ring-line-y-offset, 60px)))
-        translateX(var(--dot-line-offset, 0px));
     }
     100% {
       transform: translate(-50%, -50%) rotate(var(--dot-angle))
