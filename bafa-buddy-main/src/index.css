@@ -214,6 +214,14 @@
     transform: translateY(30px) scale(0.9);
   }
 
+  .hero-rings-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation: hero-rings-flow var(--hero-entry-duration, 2s)
+      cubic-bezier(0.19, 1, 0.22, 1) both;
+  }
+
   .hero-ring {
     position: absolute;
     border-radius: 9999px;
@@ -222,16 +230,10 @@
     --ring-glow-color: var(--ring-glow-color-light, rgba(79, 70, 229, 0.35));
     --ring-dot-size: var(--ring-dot-size, 12px);
     --ring-radius: var(--ring-radius, 150px);
-    --hero-entry-duration: 1.6s;
-    --hero-entry-delay: 0s;
+    --hero-entry-duration: 2s;
     --hero-wave-delay-offset: 0s;
-    animation-name: hero-ring-entry, wave-motion;
-    animation-duration: var(--hero-entry-duration), 6s;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1), ease-in-out;
-    animation-delay: var(--hero-entry-delay),
-      calc(var(--hero-entry-delay) + var(--hero-entry-duration) + var(--hero-wave-delay-offset));
-    animation-iteration-count: 1, infinite;
-    animation-fill-mode: both, none;
+    animation: wave-motion 6s ease-in-out
+      calc(var(--hero-entry-duration) + var(--hero-wave-delay-offset)) infinite;
   }
 
   .hero-dot {
@@ -241,8 +243,8 @@
     transform: translate(-50%, -50%) rotate(var(--dot-angle))
       translateX(var(--ring-radius));
     opacity: 0;
-    animation: hero-dot-assemble var(--hero-entry-duration)
-      cubic-bezier(0.22, 1, 0.36, 1) var(--hero-entry-delay) both;
+    animation: hero-dot-assemble var(--hero-entry-duration, 2s)
+      cubic-bezier(0.19, 1, 0.22, 1) var(--hero-entry-delay, 0s) both;
   }
 
   .hero-dot-inner {
@@ -313,18 +315,20 @@
     }
   }
 
-  @keyframes hero-ring-entry {
+  @keyframes hero-rings-flow {
     0% {
-      transform: translateX(120%);
+      transform: translateX(55%) translateY(40px) scale(0.92);
       opacity: 0;
     }
-    60% {
-      transform: translateX(-6%);
+    40% {
       opacity: 1;
+      transform: translateX(20%) translateY(40px) scale(0.98);
+    }
+    75% {
+      transform: translateX(0%) translateY(0px) scale(1.02);
     }
     100% {
-      transform: translateX(0%);
-      opacity: 1;
+      transform: translateX(0%) translateY(0px) scale(1);
     }
   }
 
@@ -358,11 +362,18 @@
 
   @keyframes hero-dot-assemble {
     0% {
-      transform: translate(-50%, -50%) translateX(var(--dot-line-offset, 0px));
+      transform: translate(-50%, calc(-50% + var(--ring-line-y-offset, 60px)))
+        translateX(
+          calc(var(--dot-line-offset, 0px) + var(--ring-line-entry-offset, 0vw))
+        );
       opacity: 0;
     }
-    40% {
+    35% {
       opacity: 1;
+    }
+    60% {
+      transform: translate(-50%, calc(-50% + var(--ring-line-y-offset, 60px)))
+        translateX(var(--dot-line-offset, 0px));
     }
     100% {
       transform: translate(-50%, -50%) rotate(var(--dot-angle))

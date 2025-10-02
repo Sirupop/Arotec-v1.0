@@ -32,14 +32,13 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
   const { t } = useLanguage();
-  const heroEntryDuration = 1.6;
+  const heroEntryDuration = 2;
   const heroRings = [
     {
       size: 384,
       top: "2.5rem",
       left: "5%",
       dots: 18,
-      delay: 0,
       dotSize: 12,
       color: "rgba(79, 70, 229, 0.45)",
       glow: "rgba(79, 70, 229, 0.35)"
@@ -49,7 +48,6 @@ const Index = () => {
       top: "5rem",
       left: "30%",
       dots: 20,
-      delay: 0.6,
       dotSize: 14,
       color: "rgba(59, 130, 246, 0.45)",
       glow: "rgba(59, 130, 246, 0.35)"
@@ -59,7 +57,6 @@ const Index = () => {
       top: "1.5rem",
       left: "58%",
       dots: 24,
-      delay: 1.2,
       dotSize: 14,
       color: "rgba(20, 184, 166, 0.45)",
       glow: "rgba(20, 184, 166, 0.35)"
@@ -69,7 +66,6 @@ const Index = () => {
       top: "6rem",
       left: "78%",
       dots: 16,
-      delay: 1.8,
       dotSize: 10,
       color: "rgba(14, 165, 233, 0.45)",
       glow: "rgba(14, 165, 233, 0.35)"
@@ -85,7 +81,7 @@ const Index = () => {
 
         {/* Animated circles covering two-thirds of banner on desktop */}
         <div className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-2/3">
-          <div className="relative w-full h-full">
+          <div className="relative w-full h-full hero-rings-wrapper">
             {heroRings.map((ring, ringIndex) => {
               const radius = ring.size / 2 - ring.dotSize;
               return (
@@ -97,12 +93,13 @@ const Index = () => {
                     height: ring.size,
                     top: ring.top,
                     left: ring.left,
-                    "--hero-entry-delay": `${ring.delay}s`,
                     "--hero-entry-duration": `${heroEntryDuration}s`,
                     "--ring-radius": `${radius}px`,
                     "--ring-dot-size": `${ring.dotSize}px`,
                     "--ring-dot-color-light": ring.color,
-                    "--ring-glow-color-light": ring.glow
+                    "--ring-glow-color-light": ring.glow,
+                    "--ring-line-entry-offset": "40vw",
+                    "--ring-line-y-offset": "72px"
                   } as CSSProperties}
                 >
                   {Array.from({ length: ring.dots }).map((_, dotIndex) => {
@@ -141,7 +138,7 @@ const Index = () => {
               >
                 {t('hero.badge')}
               </Badge>
-              <h1 className="text-5xl lg:text-7xl font-bold leading-[0.9] tracking-tight">
+              <h1 className="text-5xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
                 <span className="animate-hero-text">{t('hero.title.the')}</span>{" "}
                 <span className="animate-hero-text-delayed animate-text-glow text-foreground">{t('hero.title.smart')}</span>{" "}
                 <span className="animate-hero-text-delayed-2">{t('hero.title.for')}</span>{" "}
