@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Navigation from "@/components/Navigation";
 import InteractiveFeatures from "@/components/InteractiveFeatures";
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import dottedCircle from "@/assets/dotted-circle.svg";
 import { 
   ArrowRight,
   FileText, 
@@ -32,10 +32,52 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
   const { t } = useLanguage();
+  const heroRings = [
+    {
+      size: 384,
+      top: "2.5rem",
+      left: "5%",
+      dots: 18,
+      delay: 0,
+      dotSize: 12,
+      color: "rgba(79, 70, 229, 0.45)",
+      glow: "rgba(79, 70, 229, 0.35)"
+    },
+    {
+      size: 448,
+      top: "5rem",
+      left: "30%",
+      dots: 20,
+      delay: 0.6,
+      dotSize: 14,
+      color: "rgba(59, 130, 246, 0.45)",
+      glow: "rgba(59, 130, 246, 0.35)"
+    },
+    {
+      size: 512,
+      top: "1.5rem",
+      left: "58%",
+      dots: 24,
+      delay: 1.2,
+      dotSize: 14,
+      color: "rgba(20, 184, 166, 0.45)",
+      glow: "rgba(20, 184, 166, 0.35)"
+    },
+    {
+      size: 320,
+      top: "6rem",
+      left: "78%",
+      dots: 16,
+      delay: 1.8,
+      dotSize: 10,
+      color: "rgba(14, 165, 233, 0.45)",
+      glow: "rgba(14, 165, 233, 0.35)"
+    }
+  ];
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       {/* Hero Section */}
       <section className="relative mt-16 h-[calc(100vh-4rem)] flex items-center overflow-hidden">
         <div className="absolute inset-0 grid-pattern-subtle opacity-40"></div>
@@ -43,42 +85,46 @@ const Index = () => {
         {/* Animated circles covering two-thirds of banner on desktop */}
         <div className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-2/3">
           <div className="relative w-full h-full">
-            <div
-              className="absolute top-10 left-[5%] w-96 h-96 rounded-full overflow-hidden animate-wave-1 bg-background"
-              style={{
-                backgroundImage: `url(${dottedCircle})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat"
-              }}
-            ></div>
-            <div
-              className="absolute top-20 left-[30%] w-[28rem] h-[28rem] rounded-full overflow-hidden animate-wave-2 bg-background"
-              style={{
-                backgroundImage: `url(${dottedCircle})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat"
-              }}
-            ></div>
-            <div
-              className="absolute top-6 left-[55%] w-[32rem] h-[32rem] rounded-full overflow-hidden animate-wave-3 bg-background"
-              style={{
-                backgroundImage: `url(${dottedCircle})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat"
-              }}
-            ></div>
-            <div
-              className="absolute top-24 left-[75%] w-80 h-80 rounded-full overflow-hidden animate-wave-4 bg-background"
-              style={{
-                backgroundImage: `url(${dottedCircle})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat"
-              }}
-            ></div>
+            {heroRings.map((ring, ringIndex) => {
+              const radius = ring.size / 2 - ring.dotSize;
+              return (
+                <div
+                  key={ringIndex}
+                  className={`hero-ring animate-wave-${ringIndex + 1}`}
+                  style={{
+                    width: ring.size,
+                    height: ring.size,
+                    top: ring.top,
+                    left: ring.left,
+                    animationDelay: `${ring.delay}s`,
+                    "--ring-radius": `${radius}px`,
+                    "--ring-dot-size": `${ring.dotSize}px`,
+                    "--ring-dot-color-light": ring.color,
+                    "--ring-glow-color-light": ring.glow
+                  } as CSSProperties}
+                >
+                  {Array.from({ length: ring.dots }).map((_, dotIndex) => {
+                    const angle = (dotIndex / ring.dots) * 360;
+                    const floatDuration = 4 + ((dotIndex + ringIndex) % 5) * 0.6;
+                    const floatDelay = (dotIndex % ring.dots) * 0.12;
+                    return (
+                      <span
+                        key={dotIndex}
+                        className="hero-dot"
+                        style={{
+                          "--dot-angle": `${angle}deg`,
+                          "--dot-index": dotIndex,
+                          "--dot-duration": `${floatDuration}s`,
+                          "--dot-delay": `${floatDelay}s`
+                        } as CSSProperties}
+                      >
+                        <span className="hero-dot-inner" />
+                      </span>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
         </div>
 

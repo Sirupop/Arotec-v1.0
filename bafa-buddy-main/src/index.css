@@ -223,6 +223,52 @@
     animation: wave-motion 6s ease-in-out 3s infinite;
   }
 
+  .hero-ring {
+    position: absolute;
+    border-radius: 9999px;
+    overflow: visible;
+    --ring-dot-color: var(--ring-dot-color-light, rgba(79, 70, 229, 0.45));
+    --ring-glow-color: var(--ring-glow-color-light, rgba(79, 70, 229, 0.35));
+    --ring-dot-size: var(--ring-dot-size, 12px);
+    --ring-radius: var(--ring-radius, 150px);
+  }
+
+  .hero-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(var(--dot-angle))
+      translateX(var(--ring-radius));
+  }
+
+  .hero-dot-inner {
+    display: block;
+    width: var(--ring-dot-size);
+    height: var(--ring-dot-size);
+    border-radius: 9999px;
+    background: var(--ring-dot-color);
+    box-shadow: 0 0 16px var(--ring-glow-color);
+    opacity: 0.9;
+    animation: dot-float var(--dot-duration, 4s) ease-in-out infinite;
+    animation-delay: var(--dot-delay, 0s);
+  }
+
+  .hero-dot-inner::after {
+    content: "";
+    display: block;
+    width: 45%;
+    height: 45%;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.65);
+    margin: auto;
+    opacity: 0.7;
+  }
+
+  .dark .hero-ring {
+    --ring-dot-color: rgba(255, 255, 255, 0.9);
+    --ring-glow-color: rgba(255, 255, 255, 0.35);
+  }
+
   /* Stagger animations */
   .stagger-1 { animation-delay: 0.1s; }
   .stagger-2 { animation-delay: 0.2s; }
@@ -262,6 +308,19 @@
     }
     75% {
       transform: translateX(-20px) translateY(10px) scale(1.02);
+    }
+  }
+
+  @keyframes dot-float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    30% {
+      transform: translate3d(6px, -8px, 0) scale(1.08);
+    }
+    60% {
+      transform: translate3d(-5px, 6px, 0) scale(0.94);
     }
   }
 
