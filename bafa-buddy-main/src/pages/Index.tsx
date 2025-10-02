@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import Navigation from "@/components/Navigation";
 import InteractiveFeatures from "@/components/InteractiveFeatures";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,50 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const Index = () => {
   const { t } = useLanguage();
   const heroEntryDuration = 2;
+  const heroSectionRef = useRef<HTMLElement | null>(null);
+  const heroWrapperRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const updateScrollEffects = () => {
+      const wrapper = heroWrapperRef.current;
+      const section = heroSectionRef.current;
+
+      if (!wrapper || !section) {
+        return;
+      }
+
+      const viewportHeight = window.innerHeight || 1;
+      const rect = section.getBoundingClientRect();
+      const visibleHeight = Math.min(
+        Math.max(viewportHeight - rect.top, 0),
+        viewportHeight + rect.height
+      );
+      const progress = Math.min(
+        Math.max(visibleHeight / (viewportHeight + rect.height), 0),
+        1
+      );
+      const shift = (progress - 0.5) * 48;
+      const tilt = (progress - 0.5) * 14;
+      const glow = 0.8 + progress * 0.2;
+
+      wrapper.style.setProperty("--scroll-shift-x", `${shift}px`);
+      wrapper.style.setProperty("--scroll-shift-y", `${shift * -0.35}px`);
+      wrapper.style.setProperty("--scroll-tilt", `${tilt}deg`);
+      wrapper.style.setProperty("--scroll-glow-multiplier", glow.toFixed(2));
+    };
+
+    updateScrollEffects();
+
+    const passiveOptions: AddEventListenerOptions = { passive: true };
+
+    window.addEventListener("scroll", updateScrollEffects, passiveOptions);
+    window.addEventListener("resize", updateScrollEffects);
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollEffects);
+      window.removeEventListener("resize", updateScrollEffects);
+    };
+  }, []);
   const heroRings = [
     {
       size: 384,
@@ -76,12 +120,18 @@ const Index = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative mt-16 h-[calc(100vh-4rem)] flex items-center overflow-hidden">
+      <section
+        ref={heroSectionRef}
+        className="relative mt-16 h-[calc(100vh-4rem)] flex items-center overflow-hidden"
+      >
         <div className="absolute inset-0 grid-pattern-subtle opacity-40"></div>
 
         {/* Animated circles covering two-thirds of banner on desktop */}
         <div className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-2/3">
-          <div className="relative w-full h-full hero-rings-wrapper">
+          <div
+            ref={heroWrapperRef}
+            className="relative w-full h-full hero-rings-wrapper"
+          >
             {heroRings.map((ring, ringIndex) => {
               const radius = ring.size / 2 - ring.dotSize;
               return (
