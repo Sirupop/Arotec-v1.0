@@ -32,7 +32,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
   const { t } = useLanguage();
-  const heroEntryDuration = 2;
+  const heroEntryDuration = 1.2;
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const heroWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -55,13 +55,18 @@ const Index = () => {
         Math.max(visibleHeight / (viewportHeight + rect.height), 0),
         1
       );
-      const shift = (progress - 0.5) * 48;
-      const tilt = (progress - 0.5) * 14;
-      const glow = 0.8 + progress * 0.2;
+      const easedProgress = Math.sin(progress * Math.PI * 0.5);
+      const driftX = Math.sin(progress * Math.PI) * 36;
+      const driftY = Math.cos(progress * Math.PI * 0.85) * 22 - 10;
+      const tilt = (progress - 0.5) * 18;
+      const spin = Math.sin(progress * Math.PI * 1.15) * 9;
+      const glow = 0.88 + easedProgress * 0.32;
 
-      wrapper.style.setProperty("--scroll-shift-x", `${shift}px`);
-      wrapper.style.setProperty("--scroll-shift-y", `${shift * -0.35}px`);
-      wrapper.style.setProperty("--scroll-tilt", `${tilt}deg`);
+      wrapper.style.setProperty("--scroll-progress", progress.toFixed(3));
+      wrapper.style.setProperty("--scroll-drift-x", `${driftX.toFixed(2)}px`);
+      wrapper.style.setProperty("--scroll-drift-y", `${driftY.toFixed(2)}px`);
+      wrapper.style.setProperty("--scroll-tilt", `${tilt.toFixed(2)}deg`);
+      wrapper.style.setProperty("--scroll-spin", `${spin.toFixed(2)}deg`);
       wrapper.style.setProperty("--scroll-glow-multiplier", glow.toFixed(2));
     };
 
@@ -85,7 +90,17 @@ const Index = () => {
       dots: 18,
       dotSize: 12,
       color: "rgba(79, 70, 229, 0.45)",
-      glow: "rgba(79, 70, 229, 0.35)"
+      glow: "rgba(79, 70, 229, 0.35)",
+      entryDelay: 0,
+      waveDuration: 7.4,
+      waveDelay: 0.18,
+      waveDistance: 22,
+      waveTilt: 2.4,
+      direction: 1,
+      pulseScale: 0.032,
+      floatOffset: 9,
+      floatDepth: 7,
+      floatSpeed: 1
     },
     {
       size: 448,
@@ -94,7 +109,17 @@ const Index = () => {
       dots: 20,
       dotSize: 14,
       color: "rgba(59, 130, 246, 0.45)",
-      glow: "rgba(59, 130, 246, 0.35)"
+      glow: "rgba(59, 130, 246, 0.35)",
+      entryDelay: 0.08,
+      waveDuration: 6.6,
+      waveDelay: 0.42,
+      waveDistance: 28,
+      waveTilt: 3.6,
+      direction: -1,
+      pulseScale: 0.045,
+      floatOffset: 11,
+      floatDepth: 8,
+      floatSpeed: 0.92
     },
     {
       size: 512,
@@ -103,7 +128,17 @@ const Index = () => {
       dots: 24,
       dotSize: 14,
       color: "rgba(20, 184, 166, 0.45)",
-      glow: "rgba(20, 184, 166, 0.35)"
+      glow: "rgba(20, 184, 166, 0.35)",
+      entryDelay: 0.16,
+      waveDuration: 8.2,
+      waveDelay: 0.28,
+      waveDistance: 32,
+      waveTilt: 4.2,
+      direction: 1,
+      pulseScale: 0.052,
+      floatOffset: 13,
+      floatDepth: 10,
+      floatSpeed: 1.08
     },
     {
       size: 320,
@@ -112,7 +147,17 @@ const Index = () => {
       dots: 16,
       dotSize: 10,
       color: "rgba(14, 165, 233, 0.45)",
-      glow: "rgba(14, 165, 233, 0.35)"
+      glow: "rgba(14, 165, 233, 0.35)",
+      entryDelay: 0.24,
+      waveDuration: 5.9,
+      waveDelay: 0.6,
+      waveDistance: 18,
+      waveTilt: 2.2,
+      direction: -1,
+      pulseScale: 0.036,
+      floatOffset: 8,
+      floatDepth: 6,
+      floatSpeed: 0.88
     }
   ];
   return (
@@ -144,18 +189,32 @@ const Index = () => {
                     top: ring.top,
                     left: ring.left,
                     "--hero-entry-duration": `${heroEntryDuration}s`,
+                    "--hero-entry-delay": `${ring.entryDelay ?? 0}s`,
                     "--ring-radius": `${radius}px`,
                     "--ring-dot-size": `${ring.dotSize}px`,
                     "--ring-dot-color-light": ring.color,
                     "--ring-glow-color-light": ring.glow,
                     "--ring-line-entry-offset": "40vw",
-                    "--ring-line-y-offset": "72px"
+                    "--ring-line-y-offset": "72px",
+                    "--ring-wave-duration": `${ring.waveDuration}s`,
+                    "--ring-wave-delay": `${ring.waveDelay}s`,
+                    "--ring-wave-distance": `${ring.waveDistance}px`,
+                    "--ring-wave-tilt": `${ring.waveTilt}deg`,
+                    "--ring-rotation-direction": ring.direction,
+                    "--ring-pulse-scale": ring.pulseScale,
+                    "--ring-float-offset": `${ring.floatOffset}px`,
+                    "--ring-float-depth": `${ring.floatDepth}px`
                   } as CSSProperties}
                 >
                   {Array.from({ length: ring.dots }).map((_, dotIndex) => {
                     const angle = (dotIndex / ring.dots) * 360;
-                    const floatDuration = 4 + ((dotIndex + ringIndex) % 5) * 0.6;
-                    const floatDelay = (dotIndex % ring.dots) * 0.12;
+                    const floatDuration =
+                      (3.4 + ((dotIndex + ringIndex) % 5) * 0.5) *
+                      ring.floatSpeed;
+                    const floatDelay =
+                      (ring.entryDelay ?? 0) +
+                      (((dotIndex + ringIndex * 3) % ring.dots) * 0.08 +
+                        ring.waveDelay * 0.5);
                     const lineOffset =
                       (dotIndex - (ring.dots - 1) / 2) * ring.dotSize * 1.6;
                     return (
