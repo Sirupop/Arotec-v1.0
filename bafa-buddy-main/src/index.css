@@ -218,11 +218,13 @@
     position: relative;
     width: 100%;
     height: 100%;
-    animation: hero-rings-flow var(--hero-entry-duration, 2s)
+    animation: hero-rings-flow var(--hero-entry-duration, 1.2s)
       cubic-bezier(0.19, 1, 0.22, 1) both;
-    --scroll-shift-x: 0px;
-    --scroll-shift-y: 0px;
+    --scroll-progress: 0;
+    --scroll-drift-x: 0px;
+    --scroll-drift-y: 0px;
     --scroll-tilt: 0deg;
+    --scroll-spin: 0deg;
     --scroll-glow-multiplier: 1;
   }
 
@@ -235,14 +237,27 @@
     --ring-glow-color: var(--ring-glow-color-light, rgba(79, 70, 229, 0.35));
     --ring-dot-size: var(--ring-dot-size, 12px);
     --ring-radius: var(--ring-radius, 150px);
-    --hero-entry-duration: 2s;
+    --hero-entry-duration: 1.2s;
+    --hero-entry-delay: 0s;
     --hero-wave-delay-offset: 0s;
+    --ring-wave-duration: 7s;
+    --ring-wave-delay: var(--hero-wave-delay-offset, 0s);
+    --ring-wave-distance: 24px;
+    --ring-wave-tilt: 3deg;
+    --ring-rotation-direction: 1;
+    --ring-pulse-scale: 0.04;
+    --ring-float-offset: 8px;
+    --ring-float-depth: 6px;
     opacity: 0;
     animation:
-      hero-ring-entry var(--hero-entry-duration, 2s)
+      hero-ring-entry var(--hero-entry-duration, 1.2s)
         cubic-bezier(0.19, 1, 0.22, 1) var(--hero-entry-delay, 0s) both,
-      wave-motion 6s ease-in-out
-        calc(var(--hero-entry-duration) + var(--hero-wave-delay-offset)) infinite;
+      hero-ring-orbit var(--ring-wave-duration, 7s) ease-in-out
+        calc(
+          var(--hero-entry-duration, 1.2s) +
+            var(--ring-wave-delay, var(--hero-wave-delay-offset, 0s))
+        )
+        infinite alternate;
     filter: drop-shadow(
       0 0 calc(12px * var(--scroll-glow-multiplier, 1)) var(--ring-glow-color)
     );
@@ -272,7 +287,7 @@
     animation: dot-float var(--dot-duration, 4s) ease-in-out infinite;
     animation-delay: calc(
       var(--dot-delay, 0s) + var(--hero-entry-delay, 0s) +
-        var(--hero-entry-duration, 2s)
+        var(--hero-entry-duration, 1.2s)
     );
   }
 
@@ -333,60 +348,108 @@
   @keyframes hero-rings-flow {
     0% {
       opacity: 0;
-      transform: scale(0.92);
+      transform: translate3d(
+          calc(var(--scroll-drift-x, 0px) * 0.1),
+          calc(var(--scroll-drift-y, 0px) * 0.1),
+          0
+        )
+        rotate(calc(var(--scroll-spin, 0deg) * 0.3)) scale(0.9);
     }
-    40% {
+    45% {
       opacity: 1;
-      transform: scale(0.98);
+      transform: translate3d(
+          calc(var(--scroll-drift-x, 0px) * 0.12),
+          calc(var(--scroll-drift-y, 0px) * 0.12),
+          0
+        )
+        rotate(calc(var(--scroll-spin, 0deg) * 0.32)) scale(0.97);
     }
     100% {
-      transform: scale(1);
+      transform: translate3d(
+          calc(var(--scroll-drift-x, 0px) * 0.14),
+          calc(var(--scroll-drift-y, 0px) * 0.14),
+          0
+        )
+        rotate(calc(var(--scroll-spin, 0deg) * 0.35)) scale(1);
       opacity: 1;
     }
   }
 
   @keyframes hero-ring-entry {
     0% {
-      transform: translateX(var(--scroll-shift-x, 0px))
-        translateY(var(--scroll-shift-y, 0px)) rotate(var(--scroll-tilt, 0deg))
+      transform: translateX(var(--scroll-drift-x, 0px))
+        translateY(var(--scroll-drift-y, 0px))
+        rotate(calc(var(--scroll-tilt, 0deg) + var(--scroll-spin, 0deg)))
         scale(0.35);
       opacity: 0;
     }
     65% {
       opacity: 1;
-      transform: translateX(var(--scroll-shift-x, 0px))
-        translateY(var(--scroll-shift-y, 0px)) rotate(var(--scroll-tilt, 0deg))
+      transform: translateX(var(--scroll-drift-x, 0px))
+        translateY(var(--scroll-drift-y, 0px))
+        rotate(calc(var(--scroll-tilt, 0deg) + var(--scroll-spin, 0deg)))
         scale(1);
     }
     100% {
       opacity: 1;
-      transform: translateX(var(--scroll-shift-x, 0px))
-        translateY(var(--scroll-shift-y, 0px)) rotate(var(--scroll-tilt, 0deg))
+      transform: translateX(var(--scroll-drift-x, 0px))
+        translateY(var(--scroll-drift-y, 0px))
+        rotate(calc(var(--scroll-tilt, 0deg) + var(--scroll-spin, 0deg)))
         scale(1);
     }
   }
 
-  @keyframes wave-motion {
+  @keyframes hero-ring-orbit {
     0%,
     100% {
-      transform: translateX(var(--scroll-shift-x, 0px))
-        translateY(var(--scroll-shift-y, 0px)) rotate(var(--scroll-tilt, 0deg))
+      transform: translateX(var(--scroll-drift-x, 0px))
+        translateY(var(--scroll-drift-y, 0px))
+        rotate(calc(var(--scroll-tilt, 0deg) + var(--scroll-spin, 0deg)))
         scale(1);
     }
-    25% {
-      transform: translateX(calc(var(--scroll-shift-x, 0px) - 20px))
-        translateY(calc(var(--scroll-shift-y, 0px) - 10px))
-        rotate(var(--scroll-tilt, 0deg)) scale(1.01);
+    38% {
+      transform: translateX(
+          calc(
+            var(--scroll-drift-x, 0px) +
+              var(--ring-wave-distance, 24px) * var(--ring-rotation-direction, 1)
+          )
+        )
+        translateY(
+          calc(
+            var(--scroll-drift-y, 0px) - var(--ring-wave-distance, 24px) * 0.45
+          )
+        )
+        rotate(
+          calc(
+            var(--scroll-tilt, 0deg) + var(--scroll-spin, 0deg) +
+              var(--ring-wave-tilt, 3deg) * var(--ring-rotation-direction, 1)
+          )
+        )
+        scale(calc(1 + var(--ring-pulse-scale, 0.04)));
     }
-    50% {
-      transform: translateX(calc(var(--scroll-shift-x, 0px) - 40px))
-        translateY(var(--scroll-shift-y, 0px)) rotate(var(--scroll-tilt, 0deg))
-        scale(1);
-    }
-    75% {
-      transform: translateX(calc(var(--scroll-shift-x, 0px) - 20px))
-        translateY(calc(var(--scroll-shift-y, 0px) + 10px))
-        rotate(var(--scroll-tilt, 0deg)) scale(1.01);
+    72% {
+      transform: translateX(
+          calc(
+            var(--scroll-drift-x, 0px) -
+              var(--ring-wave-distance, 24px) * 0.6 *
+              var(--ring-rotation-direction, 1)
+          )
+        )
+        translateY(
+          calc(
+            var(--scroll-drift-y, 0px) + var(--ring-wave-distance, 24px) * 0.55
+          )
+        )
+        rotate(
+          calc(
+            var(--scroll-tilt, 0deg) + var(--scroll-spin, 0deg) -
+              var(--ring-wave-tilt, 3deg) * 0.65 *
+              var(--ring-rotation-direction, 1)
+          )
+        )
+        scale(
+          calc(1 - var(--ring-pulse-scale, 0.04) * 0.55)
+        );
     }
   }
 
@@ -394,27 +457,36 @@
     0%,
     100% {
       transform: translate3d(
-          calc(var(--scroll-shift-x, 0px) * 0.05),
-          calc(var(--scroll-shift-y, 0px) * 0.05),
+          calc(var(--scroll-drift-x, 0px) * 0.05),
+          calc(var(--scroll-drift-y, 0px) * 0.05),
           0
         )
         scale(1);
     }
-    30% {
+    35% {
       transform: translate3d(
-          calc(var(--scroll-shift-x, 0px) * 0.05 + 6px),
-          calc(var(--scroll-shift-y, 0px) * 0.05 - 8px),
+          calc(
+            var(--scroll-drift-x, 0px) * 0.05 + var(--ring-float-offset, 8px)
+          ),
+          calc(
+            var(--scroll-drift-y, 0px) * 0.05 - var(--ring-float-depth, 6px)
+          ),
           0
         )
-        scale(1.06);
+        scale(calc(1 + var(--ring-pulse-scale, 0.04) * 0.85));
     }
-    60% {
+    70% {
       transform: translate3d(
-          calc(var(--scroll-shift-x, 0px) * 0.05 - 5px),
-          calc(var(--scroll-shift-y, 0px) * 0.05 + 6px),
+          calc(
+            var(--scroll-drift-x, 0px) * 0.05 -
+              var(--ring-float-offset, 8px) * 0.65
+          ),
+          calc(
+            var(--scroll-drift-y, 0px) * 0.05 + var(--ring-float-depth, 6px)
+          ),
           0
         )
-        scale(0.96);
+        scale(calc(1 - var(--ring-pulse-scale, 0.04) * 0.5));
     }
   }
 
