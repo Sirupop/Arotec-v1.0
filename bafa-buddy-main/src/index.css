@@ -226,6 +226,7 @@
     position: absolute;
     border-radius: 9999px;
     overflow: visible;
+    transform-origin: center;
     --ring-dot-color: var(--ring-dot-color-light, rgba(79, 70, 229, 0.45));
     --ring-glow-color: var(--ring-glow-color-light, rgba(79, 70, 229, 0.35));
     --ring-dot-size: var(--ring-dot-size, 12px);
@@ -322,18 +323,18 @@
 
   @keyframes hero-rings-flow {
     0% {
-      transform: translateX(55%) translateY(40px) scale(0.92);
       opacity: 0;
+      transform: scale(0.92);
     }
     40% {
       opacity: 1;
-      transform: translateX(20%) translateY(40px) scale(0.98);
+      transform: scale(0.98);
     }
     75% {
-      transform: translateX(0%) translateY(0px) scale(1.02);
+      transform: scale(1.02);
     }
     100% {
-      transform: translateX(0%) translateY(0px) scale(1);
+      transform: scale(1);
     }
   }
 
