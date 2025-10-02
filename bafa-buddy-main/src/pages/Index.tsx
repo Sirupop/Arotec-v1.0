@@ -32,6 +32,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
   const { t } = useLanguage();
+  const heroEntryDuration = 1.6;
   const heroRings = [
     {
       size: 384,
@@ -96,7 +97,8 @@ const Index = () => {
                     height: ring.size,
                     top: ring.top,
                     left: ring.left,
-                    animationDelay: `${ring.delay}s`,
+                    "--hero-entry-delay": `${ring.delay}s`,
+                    "--hero-entry-duration": `${heroEntryDuration}s`,
                     "--ring-radius": `${radius}px`,
                     "--ring-dot-size": `${ring.dotSize}px`,
                     "--ring-dot-color-light": ring.color,
@@ -107,13 +109,15 @@ const Index = () => {
                     const angle = (dotIndex / ring.dots) * 360;
                     const floatDuration = 4 + ((dotIndex + ringIndex) % 5) * 0.6;
                     const floatDelay = (dotIndex % ring.dots) * 0.12;
+                    const lineOffset =
+                      (dotIndex - (ring.dots - 1) / 2) * ring.dotSize * 1.6;
                     return (
                       <span
                         key={dotIndex}
                         className="hero-dot"
                         style={{
                           "--dot-angle": `${angle}deg`,
-                          "--dot-index": dotIndex,
+                          "--dot-line-offset": `${lineOffset}px`,
                           "--dot-duration": `${floatDuration}s`,
                           "--dot-delay": `${floatDelay}s`
                         } as CSSProperties}

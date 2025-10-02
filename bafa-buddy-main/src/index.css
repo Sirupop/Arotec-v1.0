@@ -121,6 +121,14 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+  .dark .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--accent-blue)), hsl(var(--accent-green)));
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
 
   /* Circle Outlines Signature Element */
@@ -206,23 +214,6 @@
     transform: translateY(30px) scale(0.9);
   }
 
-  /* Wave Animation for Circles */
-  .animate-wave-1 {
-    animation: wave-motion 6s ease-in-out infinite;
-  }
-
-  .animate-wave-2 {
-    animation: wave-motion 6s ease-in-out 1s infinite;
-  }
-
-  .animate-wave-3 {
-    animation: wave-motion 6s ease-in-out 2s infinite;
-  }
-
-  .animate-wave-4 {
-    animation: wave-motion 6s ease-in-out 3s infinite;
-  }
-
   .hero-ring {
     position: absolute;
     border-radius: 9999px;
@@ -231,6 +222,16 @@
     --ring-glow-color: var(--ring-glow-color-light, rgba(79, 70, 229, 0.35));
     --ring-dot-size: var(--ring-dot-size, 12px);
     --ring-radius: var(--ring-radius, 150px);
+    --hero-entry-duration: 1.6s;
+    --hero-entry-delay: 0s;
+    --hero-wave-delay-offset: 0s;
+    animation-name: hero-ring-entry, wave-motion;
+    animation-duration: var(--hero-entry-duration), 6s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1), ease-in-out;
+    animation-delay: var(--hero-entry-delay),
+      calc(var(--hero-entry-delay) + var(--hero-entry-duration) + var(--hero-wave-delay-offset));
+    animation-iteration-count: 1, infinite;
+    animation-fill-mode: both, none;
   }
 
   .hero-dot {
@@ -239,6 +240,9 @@
     left: 50%;
     transform: translate(-50%, -50%) rotate(var(--dot-angle))
       translateX(var(--ring-radius));
+    opacity: 0;
+    animation: hero-dot-assemble var(--hero-entry-duration)
+      cubic-bezier(0.22, 1, 0.36, 1) var(--hero-entry-delay) both;
   }
 
   .hero-dot-inner {
@@ -250,7 +254,9 @@
     box-shadow: 0 0 16px var(--ring-glow-color);
     opacity: 0.9;
     animation: dot-float var(--dot-duration, 4s) ease-in-out infinite;
-    animation-delay: var(--dot-delay, 0s);
+    animation-delay: calc(
+      var(--dot-delay, 0s) + var(--hero-entry-delay) + var(--hero-entry-duration)
+    );
   }
 
   .hero-dot-inner::after {
@@ -264,9 +270,20 @@
     opacity: 0.7;
   }
 
-  .dark .hero-ring {
-    --ring-dot-color: rgba(255, 255, 255, 0.9);
-    --ring-glow-color: rgba(255, 255, 255, 0.35);
+  .animate-wave-1 {
+    --hero-wave-delay-offset: 0s;
+  }
+
+  .animate-wave-2 {
+    --hero-wave-delay-offset: 1s;
+  }
+
+  .animate-wave-3 {
+    --hero-wave-delay-offset: 2s;
+  }
+
+  .animate-wave-4 {
+    --hero-wave-delay-offset: 3s;
   }
 
   /* Stagger animations */
@@ -296,6 +313,21 @@
     }
   }
 
+  @keyframes hero-ring-entry {
+    0% {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+    60% {
+      transform: translateX(-6%);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
+
   @keyframes wave-motion {
     0%, 100% {
       transform: translateX(0) translateY(0) scale(1);
@@ -321,6 +353,21 @@
     }
     60% {
       transform: translate3d(-5px, 6px, 0) scale(0.94);
+    }
+  }
+
+  @keyframes hero-dot-assemble {
+    0% {
+      transform: translate(-50%, -50%) translateX(var(--dot-line-offset, 0px));
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(var(--dot-angle))
+        translateX(var(--ring-radius));
+      opacity: 1;
     }
   }
 
